@@ -43,6 +43,10 @@ def init():
 
 init()
 
-print(scores)
 
+def recup_score(joueur):
+    score = scores[joueur]
+    return (score)
+
+print(recup_score('patrice'))
 

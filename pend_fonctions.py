@@ -32,21 +32,61 @@ def choix_mot():
 def init():
     '''vérifie l'existence du fichier score, charge les scores et si non existant créé le tout'''
     try:
-         with open('pendu_scores','rb') as fichier:
-            scores=pickle.Unpickler(fichier)
+        with open('pendu_scores','rb') as fichier:
+            mon_pickler=pickle.Unpickler(fichier)
+            scores = mon_pickler.load()
+            print('fichier lu')
+            fichier.close
     except:
         with open('pendu_scores','wb') as fichier:
             scores={}
             mon_pickler = pickle.Pickler(fichier)
             mon_pickler.dump(scores)
-    return(scores)
-
-init()
+            print('fichier créé')
+            fichier.close
+    return scores
 
 
 def recup_score(joueur):
-    score = scores[joueur]
+    try:
+        score = scores[joueur]
+    except:
+        score=0
     return (score)
 
-print(recup_score('patrice'))
+def ecrit_score(joueur,score):
+    scores[joueur]=score
+    with open('pendu_scores','wb') as fichier:
+            mon_pickler = pickle.Pickler(fichier)
+            mon_pickler.dump(scores)
+            print('score enregistré')
+            fichier.close
+    return
 
+
+def cache_mot(mot):
+    mot_cache=[]
+    for lettre in mot:
+        mot_cache.append('*')
+    return(mot_cache)
+
+def cherche_lettre(lettre):
+
+
+    
+    return()
+
+
+
+
+
+# scores=init()
+# print(scores)
+# print(recup_score('Patrice'))
+# ecrit_score('Patrice',10)
+# print(recup_score('Patrice'))
+
+
+mystere = choix_mot()
+mot_affiche=cache_mot(mystere)
+print(mot_affiche)

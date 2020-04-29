@@ -19,10 +19,6 @@ import pickle
 
 from pend_donnees import *
 
-print(__doc__)
-print(mots)
-let_a_trouv = 0
-
 def choix_mot():
     ''' choisit un mot au hazard parmi la liste "mots"'''
     i = random.randint(1,len(mots))
@@ -36,19 +32,18 @@ def init():
         with open('pendu_scores','rb') as fichier:
             mon_pickler=pickle.Unpickler(fichier)
             scores = mon_pickler.load()
-            print('fichier lu')
             fichier.close
     except:
         with open('pendu_scores','wb') as fichier:
             scores={}
             mon_pickler = pickle.Pickler(fichier)
             mon_pickler.dump(scores)
-            print('fichier créé')
             fichier.close
     return scores
 
 
 def recup_score(joueur):
+    scores=init() 
     try:
         score = scores[joueur]
     except:
@@ -56,11 +51,11 @@ def recup_score(joueur):
     return (score)
 
 def ecrit_score(joueur,score):
+    scores=init()
     scores[joueur]=score
     with open('pendu_scores','wb') as fichier:
             mon_pickler = pickle.Pickler(fichier)
             mon_pickler.dump(scores)
-            print('score enregistré')
             fichier.close
     return
 
@@ -69,34 +64,27 @@ def cache_mot(mot):
     mot_cache=[]
     for lettre in mot:
         mot_cache.append('*')
-    global let_a_trouv
     let_a_trouv = len(mot)
-    return(mot_cache)
+    return(mot_cache,let_a_trouv)
    
+def recup_lettre():
+    lettre = input ("Saisissez une lettre : ")
+    lettre = lettre.upper()
+    if len(lettre) !=1:
+        return recup_lettre()
+    return(lettre)
 
 
-def cherche_lettre(lettre):
-    global let_a_trouv
+def cherche_lettre(mystere,lettre,mot_affiche,let_a_trouv,essai):
     i = 0
+    trouve=0
     for elt in mystere:
         if lettre == elt:
             let_a_trouv -=1
             mot_affiche[i]=lettre
-        i+=1
-    return()
+            trouve=1
+        i +=1
+    if trouve == 0:
+        essai +=1
+    return(mot_affiche,let_a_trouv,essai)
 
-
-# scores=init()
-# print(scores)
-# print(recup_score('Patrice'))
-# ecrit_score('Patrice',10)
-# print(recup_score('Patrice'))
-
-print(let_a_trouv)
-mystere = 'BAGUETTE'
-mot_affiche=cache_mot(mystere)
-print(mot_affiche)
-print(let_a_trouv)
-cherche_lettre('T')
-print(let_a_trouv)
-print(mot_affiche)

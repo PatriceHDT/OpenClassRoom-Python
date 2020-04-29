@@ -9,3 +9,7 @@ mots[7]='BOUTIQUE'
 mots[8]='BRONZEES'
 mots[9]='CAHUTTES'
 mots[10]='CAMELOTE'
+
+
+max_essai = 5
+

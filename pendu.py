@@ -22,9 +22,8 @@ print ("{0}, vous avez actuellement {1} points.".format(nom, score))
 
 
 while input("Souhaitez vous faire une nouvelle partie ? (O/N) ").upper() == 'O':
-    # mystere = choix_mot()
     lettres_essayees=[]
-    mystere = "BAGUETTE"
+    mystere = choix_mot()
     mot_affiche=cache_mot(mystere)[0]
     let_a_trouv=cache_mot(mystere)[1]
     essai = 0

@@ -21,6 +21,7 @@ from pend_donnees import *
 
 print(__doc__)
 print(mots)
+let_a_trouv = 0
 
 def choix_mot():
     ''' choisit un mot au hazard parmi la liste "mots"'''
@@ -68,16 +69,21 @@ def cache_mot(mot):
     mot_cache=[]
     for lettre in mot:
         mot_cache.append('*')
+    global let_a_trouv
+    let_a_trouv = len(mot)
     return(mot_cache)
+   
+
 
 def cherche_lettre(lettre):
-
-
-    
+    global let_a_trouv
+    i = 0
+    for elt in mystere:
+        if lettre == elt:
+            let_a_trouv -=1
+            mot_affiche[i]=lettre
+        i+=1
     return()
-
-
-
 
 
 # scores=init()
@@ -86,7 +92,11 @@ def cherche_lettre(lettre):
 # ecrit_score('Patrice',10)
 # print(recup_score('Patrice'))
 
-
-mystere = choix_mot()
+print(let_a_trouv)
+mystere = 'BAGUETTE'
 mot_affiche=cache_mot(mystere)
+print(mot_affiche)
+print(let_a_trouv)
+cherche_lettre('T')
+print(let_a_trouv)
 print(mot_affiche)
